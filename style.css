@@ -1,24 +1,35 @@
-/* Fullscreen video background */
-#bgVideo {
+/* Ensure the page takes up the full screen */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  /* Background video styling */
+  #bgVideo {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    z-index: -1; /* Send behind content */
+    z-index: -1;
   }
   
-  /* Optional: Adjust text appearance over video */
-  body {
-    font-family: Arial, sans-serif;
+  /* Centered content on top of the video */
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
     text-align: center;
-    margin-top: 50px;
-    color: white; /* Make text visible over dark video */
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Improve readability */
+    color: white;
+    font-family: Arial, sans-serif;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
   }
   
   .title {
-    color: white; /* Ensure visible over background */
+    font-size: 3em;
   }
   
