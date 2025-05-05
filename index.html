@@ -1,20 +1,36 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Hello, World!</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="video-wrapper">
-      <video autoplay muted loop class="bgVideo">
-        <source src="firefly live.mp4" type="video/mp4" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firefly Background</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30cm;
+            height: 30cm;
+            object-fit: cover;
+            z-index: -1; /* Ensures the video stays behind the content */
+        }
+    </style>
+</head>
+<body>
+    <video class="background-video" autoplay loop muted>
+        <source src="firefly live.mp4" type="video/mp4">
         Your browser does not support the video tag.
-      </video>
-      <div class="content">
-        <h1 class="title">Hello World!</h1>
-        <p id="currentTime"></p>
-      </div>
+    </video>
+
+    <div>
+        <!-- Your webpage content goes here -->
+        <h1>Welcome to My Website</h1>
+        <p>This is some content that sits on top of the video background.</p>
     </div>
-    <script src="script.js"></script>
-  </body>
+</body>
 </html>
