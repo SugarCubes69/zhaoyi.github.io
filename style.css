@@ -1,35 +1,42 @@
-/* Ensure the page takes up the full screen */
+/* Reset default spacing */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black; /* fallback if video fails */
   }
   
-  /* Background video styling */
+  /* Container for video and content */
+  .video-wrapper {
+    position: relative;
+    width: 50vw;
+    height: 50vh;
+  }
+  
+  /* Shrink video to 50% screen size */
   #bgVideo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    z-index: -1;
+    display: block;
   }
   
-  /* Centered content on top of the video */
+  /* Centered text on top of video */
   .content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
     text-align: center;
     color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
     font-family: Arial, sans-serif;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
   }
   
   .title {
-    font-size: 3em;
+    font-size: 2.5em;
   }
   
