@@ -1,4 +1,4 @@
-/* Reset default spacing */
+/* Full height and centered layout */
 html, body {
     margin: 0;
     padding: 0;
@@ -6,37 +6,38 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: black; /* fallback if video fails */
+    background-color: black;
   }
   
-  /* Container for video and content */
+  /* Video wrapper is 20% of screen size (80% smaller) */
   .video-wrapper {
     position: relative;
-    width: 50vw;
-    height: 50vh;
+    width: 20vw;
+    height: 20vh;
   }
   
-  /* Shrink video to 50% screen size */
+  /* Video scaled down */
   #bgVideo {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px;
     display: block;
   }
   
-  /* Centered text on top of video */
+  /* Text centered over the video */
   .content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
     color: white;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
     font-family: Arial, sans-serif;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
   }
   
   .title {
-    font-size: 2.5em;
+    font-size: 1.5em;
   }
   
