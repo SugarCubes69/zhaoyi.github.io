@@ -1,40 +1,40 @@
-/* Full height and centered layout */
+/* Make sure the page is centered and black */
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100vh;
+    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: black;
   }
   
-  /* Video wrapper is 20% of screen size (80% smaller) */
+  /* Container that holds both video and text */
   .video-wrapper {
     position: relative;
-    width: 20vw;
-    height: 20vh;
+    width: 20vw;   /* 20% of viewport width */
+    height: 20vh;  /* 20% of viewport height */
   }
   
-  /* Video scaled down */
-  #bgVideo {
+  /* Actually shrink the video */
+  .bgVideo {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 10px;
     display: block;
+    border-radius: 10px;
   }
   
-  /* Text centered over the video */
+  /* Text absolutely positioned on top of video */
   .content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    text-align: center;
     font-family: Arial, sans-serif;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
   }
   
   .title {
