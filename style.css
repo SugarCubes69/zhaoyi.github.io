@@ -11,15 +11,14 @@ html, body {
 
 /* Container that holds both video and text */
 .video-wrapper {
-  position: relative;
-  width: 20vw;   /* 20% of viewport width */
-  height: 20vh;  /* 20% of viewport height */
+  width: 1vw;   /* 20% of viewport width */
+  height: 1vh;  /* 20% of viewport height */
 }
 
 /* Actually shrink the video */
 .bgVideo {
-  width: 50%;
-  height: 50%;
+  width: 1%;
+  height: 1%;
   object-fit: cover;
   display: block;
   border-radius: 10px;
