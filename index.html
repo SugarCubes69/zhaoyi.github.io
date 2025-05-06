@@ -30,20 +30,16 @@
 
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firefly Background</title>
+	<title>Firefly Video</title>
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
-        .background-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 923px;
+        .video-box {
+			width: 923px;
             height: 692px;
-            /*object-fit: cover;
-            z-index: -1; Ensures the video stays behind the content */
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 
@@ -89,10 +85,12 @@
 	<div id="home" class="ct-header ct-header--slider ct-slick-custom-dots">
 		<div class="ct-slick-homepage" data-arrows="false" data-autoplay="false">
 			<div class="ct-header tablex item">
-				<video class="background-video" autoplay loop muted>
-					<source src="firefly live.mp4" type="video/mp4">
-					Your browser does not support the video tag.
-				</video>
+				<div class="video-box">
+					<video autoplay loop muted>
+						<source src="firefly live.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+				</div>
 			</div>
 			<div class="ct-header tablex item" data-background="uploads/banner-01.jpg">
 				<div class="ct-u-display-tablex">
