@@ -28,6 +28,26 @@
     <link rel="stylesheet" href="css/custom.css">
 	<script src="js/modernizr.js"></script> <!-- Modernizr -->
 
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firefly Background</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30cm;
+            height: 30cm;
+            object-fit: cover;
+            z-index: -1; /* Ensures the video stays behind the content */
+        }
+    </style>
+
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -67,7 +87,11 @@
       </div>
     </nav>
 	
-	<div id="home" class="ct-header ct-header--slider ct-slick-custom-dots">
+	<div id="home" class="ct-header ct-slick-custom-dots">
+		<video class="background-video" autoplay loop muted>
+			<source src="firefly live.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
 	</div><!-- .ct-header --> 
 
     <div id="about" class="section wb">
