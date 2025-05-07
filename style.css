@@ -356,8 +356,8 @@ a img.aligncenter {
 	text-transform: uppercase;
 	transition: all 600ms cubic-bezier(0.77, 0, 0.175, 1);	
 	cursor: pointer;
-	background: #faad3b;
-	color: #ffffff;
+	background: #3bbafa;
+	color: #130101;
 	display: inline-block;
 	-webkit-user-select: none;
 	   -moz-user-select: none;
@@ -2695,87 +2695,7 @@ select.mobile-device {
     line-height: 1 !important:
 }
 
-#preloader {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: #292929;
-    z-index: 11000;
-    position: fixed;
-    display: block
-}
 
-
-@keyframes loader {
-  0%, 10%, 100% {
-    width: 80px;
-    height: 80px;
-  }
-  65% {
-    width: 150px;
-    height: 150px;
-  }
-}
-@keyframes loaderBlock {
-  0%, 30% {
-    transform: rotate(0);
-  }
-  55% {
-    background-color: #faad3b;
-  }
-  100% {
-    transform: rotate(90deg);
-  }
-}
-@keyframes loaderBlockInverse {
-  0%, 20% {
-    transform: rotate(0);
-  }
-  55% {
-    background-color: #faad3b;
-  }
-  100% {
-    transform: rotate(-90deg);
-  }
-}
-.loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 80px;
-  height: 80px;
-  transform: translate(-50%, -50%) rotate(45deg) translate3d(0, 0, 0);
-  animation: loader 1.2s infinite ease-in-out;
-}
-.loader span {
-  position: absolute;
-  display: block;
-  width: 40px;
-  height: 40px;
-  background-color: #009bb7;
-  animation: loaderBlock 1.2s infinite ease-in-out both;
-}
-.loader span:nth-child(1) {
-  top: 0;
-  left: 0;
-}
-.loader span:nth-child(2) {
-  top: 0;
-  right: 0;
-  animation: loaderBlockInverse 1.2s infinite ease-in-out both;
-}
-.loader span:nth-child(3) {
-  bottom: 0;
-  left: 0;
-  animation: loaderBlockInverse 1.2s infinite ease-in-out both;
-}
-.loader span:nth-child(4) {
-  bottom: 0;
-  right: 0;
-}
 
 /*------------------------------------------------------------------
     BUTTONS
