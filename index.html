@@ -32,67 +32,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Firefly Background</title>
     <style>
-		html, body {
-			margin: 0;
-			padding: 0;
-			height: 100%;
-			font-family: sans-serif;
-			color: white;
-		}
-
-		.video-box {
-			position: relative;
-			width: 100%;
-			height: 100vh;
-			overflow: hidden;
-		}
-
-		.background-video {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			z-index: -1;
-			opacity: 0.7;
-		}
-
-		.video-box > div {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			text-align: center;
-			font-size: 1.5em;
-		}
-
-		.static-text {
-			display: inline-block;
-			vertical-align: top;
-		}
-
-		.slot {
-			display: inline-block;
-			height: 1.5em;
-			overflow: hidden;
-			vertical-align: top;
-			width: 250px;
-		}
-
-		.slot-line {
-			animation: slide-up 0.5s ease;
-		}
-
-		@keyframes slide-up {
-			from {
-				transform: translateY(1.5em);
-			}
-			to {
-				transform: translateY(0);
-			}
-		}
-	</style>
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          font-family: sans-serif;
+          color: white;
+        }
+    
+        .video-box {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          overflow: hidden;
+        }
+    
+        .background-video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          z-index: -1;
+          opacity: 0.7;
+        }
+    
+        .content {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          text-align: center;
+          font-size: 1.5em;
+        }
+    
+        .static-text {
+          display: inline-block;
+          vertical-align: top;
+        }
+    
+        .slot {
+          display: inline-block;
+          height: 1.5em;
+          overflow: hidden;
+          vertical-align: top;
+          width: 250px;
+        }
+    
+        #slot-lines {
+          display: flex;
+          flex-direction: column;
+          transform: translateY(0);
+          transition: transform 0.5s ease;
+        }
+    
+        .slot-item {
+          height: 1.5em;
+        }
+      </style>
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -138,35 +136,32 @@
 			<div class="ct-header tablex item">
                 <div class="video-box">
                     <video class="background-video" autoplay loop muted>
-                        <source src="firefly live.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
+                      <source src="firefly live.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
                     </video>
-                    <div>
-                        <span class="static-text">I venture into areas like </span>
-                        <span class="slot">
-                            <div id="slot-lines">
-                                <div>competitive programming</div>
-                                <div>machine learning</div>
-                                <div>game development</div>
-                                <div>web development</div>
-                            </div>
-                        </span>
+                
+                    <div class="content">
+                      <span class="static-text">I venture into areas like </span>
+                      <span class="slot">
+                        <div id="slot-lines">
+                          <div class="slot-item">competitive programming</div>
+                          <div class="slot-item">machine learning</div>
+                          <div class="slot-item">game development</div>
+                          <div class="slot-item">web development</div>
+                        </div>
+                      </span>
                     </div>
-                </div>
-                <script>
+                  </div>
+                  <script>
                     const slot = document.getElementById("slot-lines");
-                    let interval = 2000;
-            
+                    const lines = slot.children.length;
+                    let index = 0;
+                
                     setInterval(() => {
-                        const first = slot.children[0];
-                        const clone = first.cloneNode(true);
-                        clone.classList.add("slot-line");
-                        slot.appendChild(clone);
-                        setTimeout(() => {
-                            first.remove();
-                        }, 100); // allow DOM update
-                    }, interval);
-                </script>
+                      index = (index + 1) % lines;
+                      slot.style.transform = `translateY(-${index * 1.5}em)`;
+                    }, 2000);
+                  </script>
                     </div>
 				</div>
 			</div>
