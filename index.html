@@ -83,23 +83,11 @@
           display: flex;
           flex-direction: column;
           transform: translateY(0);
-          transition: transform 0.5s ease;
+          transition: transform 0.6s ease-in-out;
         }
     
         .slot-item {
           height: 1.5em;
-        }
-        .slot-line {
-            animation: slide-up 0.5s ease;
-        }
-
-        @keyframes slide-up {
-            from {
-                transform: translateY(1.5em);
-            }
-            to {
-                transform: translateY(0);
-            }
         }
       </style>
    
@@ -166,19 +154,31 @@
                     </div>
                     <script>
                         const slot = document.getElementById("slot-lines");
-                        let interval = 2000;
+                        const lineHeight = 2; // em
+                        const interval = 2000;
                       
-                        setInterval(() => {
-                          // Move first child to the end
-                          const first = slot.children[0];
-                          const clone = first.cloneNode(true);
-                          clone.classList.add("slot-line"); // add animation class
+                        function scrollSlot() {
+                          // Animate scroll up
+                          slot.style.transform = `translateY(-${lineHeight}em)`;
                       
-                          slot.appendChild(clone);
+                          // After animation ends, rearrange
                           setTimeout(() => {
-                            first.remove();
-                          }, 100); // allow DOM update
-                        }, interval);
+                            // Move first element to bottom
+                            const first = slot.children[0];
+                            slot.appendChild(first);
+                      
+                            // Instantly reset transform (no animation)
+                            slot.style.transition = "none";
+                            slot.style.transform = "translateY(0)";
+                      
+                            // Re-enable transition
+                            setTimeout(() => {
+                              slot.style.transition = "transform 0.6s ease-in-out";
+                            }, 50);
+                          }, 600); // match animation duration
+                        }
+                      
+                        setInterval(scrollSlot, interval);
                       </script>
                 </div>
 			</div>
