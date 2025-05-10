@@ -89,6 +89,10 @@
         .slot-item {
           height: 1.5em;
         }
+        .slot-wrapper {
+            height: 8em; /* 4 lines × 2em */
+            overflow: hidden;
+        }
       </style>
    
 
@@ -143,11 +147,13 @@
                     <div class="content">
                         <span class="static-text">I venture into areas like </span>
                         <span class="slot">
+                            <div class="slot-wrapper">
                           <div id="slot-lines">
                             <div class="slot-item">competitive programming</div>
                             <div class="slot-item">machine learning</div>
                             <div class="slot-item">game development</div>
                             <div class="slot-item">web development</div>
+                          </div>
                           </div>
                         </span>
                       </div>
