@@ -89,6 +89,18 @@
         .slot-item {
           height: 1.5em;
         }
+        .slot-line {
+            animation: slide-up 0.5s ease;
+        }
+
+        @keyframes slide-up {
+            from {
+                transform: translateY(1.5em);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
       </style>
    
 
@@ -154,13 +166,19 @@
                     </div>
                     <script>
                         const slot = document.getElementById("slot-lines");
-                        const lines = slot.children.length;
-                        let index = 0;
-                    
+                        let interval = 2000;
+                      
                         setInterval(() => {
-                          index = (index + 1) % lines;
-                          slot.style.transform = `translateY(-${index * 1.5}em)`;
-                        }, 2000);
+                          // Move first child to the end
+                          const first = slot.children[0];
+                          const clone = first.cloneNode(true);
+                          clone.classList.add("slot-line"); // add animation class
+                      
+                          slot.appendChild(clone);
+                          setTimeout(() => {
+                            first.remove();
+                          }, 100); // allow DOM update
+                        }, interval);
                       </script>
                 </div>
 			</div>
