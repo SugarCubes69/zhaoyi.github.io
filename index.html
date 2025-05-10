@@ -68,27 +68,21 @@
         }
     
         .static-text {
-          display: inline-block;
-          vertical-align: top;
+          display: block;
+          margin-bottom: 0.5em;
         }
     
         .slot {
-          display: inline-block;
-          height: 1.5em;
-          overflow: hidden;
-          vertical-align: top;
-          width: 250px;
-        }
-    
-        #slot-lines {
           display: flex;
           flex-direction: column;
-          transform: translateY(0);
-          transition: transform 0.5s ease;
+          align-items: center;
+          gap: 0.5em;
         }
     
         .slot-item {
-          height: 1.5em;
+          background-color: rgba(0, 0, 0, 0.4);
+          padding: 0.2em 0.5em;
+          border-radius: 0.3em;
         }
       </style>
 
@@ -141,29 +135,15 @@
                     </video>
                 
                     <div class="content">
-                      <span class="static-text">I venture into areas like </span>
-                      <span class="slot">
-                        <div id="slot-lines">
-                          <div class="slot-item">competitive programming</div>
-                          <div class="slot-item">machine learning</div>
-                          <div class="slot-item">game development</div>
-                          <div class="slot-item">web development</div>
-                        </div>
-                      </span>
+                      <span class="static-text">I venture into areas like</span>
+                      <div class="slot">
+                        <div class="slot-item">competitive programming</div>
+                        <div class="slot-item">machine learning</div>
+                        <div class="slot-item">game development</div>
+                        <div class="slot-item">web development</div>
+                      </div>
                     </div>
                   </div>
-                  <script>
-                    const slot = document.getElementById("slot-lines");
-                    const lines = slot.children.length;
-                    let index = 0;
-                
-                    setInterval(() => {
-                      index = (index + 1) % lines;
-                      slot.style.transform = `translateY(-${index * 1.5}em)`;
-                    }, 2000);
-                  </script>
-                    </div>
-				</div>
 			</div>
 			
 		</div><!-- .ct-slick-homepage -->
