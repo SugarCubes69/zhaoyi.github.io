@@ -42,14 +42,44 @@
             z-index: -1; /* Ensures the video stays behind the content */
 			opacity: 0.7;
         }
-        .slot-title {
-            position: relative;
-            z-index: 1; /* content on top of video */
-            padding: 60px;
-            color: rgb(4, 4, 4);
-        }
     </style>
     
+    <style>
+        body {
+          font-family: sans-serif;
+          padding: 50px;
+        }
+    
+        .slotcontainer {
+          line-height: 2;
+          z-index: 1;
+        }
+    
+        .static-text {
+          display: inline-block;
+          vertical-align: top;
+        }
+    
+        .slot {
+          display: inline-block;
+          height: 1.5em;
+          overflow: hidden;
+          vertical-align: top;
+          width: 250px;
+        }
+    
+        .slot-line {
+          animation: slide-up 0.5s ease;
+        }
+        @keyframes slide-up {
+      from {
+        transform: translateY(1.5em);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+</style>
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -93,50 +123,22 @@
 	<div id="home" class="ct-header ct-header--slider ct-slick-custom-dots">
 		<div class="ct-slick-homepage" data-arrows="false" data-autoplay="false">
 			<div class="ct-header tablex item">
-				<div class="video-box">
-                    <div class="slot-title">
-                        <div class="static-text">I venture into area like</div>
-                        <div class="slot-wrapper">
-                          <div class="slot" id="slot">
-                            <div>competitive programming</div>
-                            <div>machine learning</div>
-                            <div>game development</div>
-                            <div>web development</div>
-                          </div>
-                        </div>
+                <div class="slotcontainer">
+                    <span class="static-text">I venture into area like </span>
+                    <span class="slot">
+                      <div id="slot-lines">
+                        <div>competitive programming</div>
+                        <div>machine learning</div>
+                        <div>game development</div>
+                        <div>web development</div>
                       </div>
+                    </span>
+                  </div>
+				<div class="video-box">
 					<video class="background-video" autoplay loop muted>
 						<source src="firefly live.mp4" type="video/mp4">
 						Your browser does not support the video tag.
 					</video>
-                    <script>
-                        const slot = document.getElementById("slot");
-                        const lineHeight = 2; // em
-                        const interval = 2000;
-                      
-                        function scrollSlot() {
-                          // Animate scroll up
-                          slot.style.transform = `translateY(-${lineHeight}em)`;
-                      
-                          // After animation ends, rearrange
-                          setTimeout(() => {
-                            // Move first element to bottom
-                            const first = slot.children[0];
-                            slot.appendChild(first);
-                      
-                            // Instantly reset transform (no animation)
-                            slot.style.transition = "none";
-                            slot.style.transform = "translateY(0)";
-                      
-                            // Re-enable transition
-                            setTimeout(() => {
-                              slot.style.transition = "transform 0.6s ease-in-out";
-                            }, 50);
-                          }, 600); // match animation duration
-                        }
-                      
-                        setInterval(scrollSlot, interval);
-                      </script>
 				</div>
 			</div>
 			
