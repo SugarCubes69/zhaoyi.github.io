@@ -203,13 +203,18 @@
                       let audioSource = audioContext.createMediaElementSource(audioElement);
                       audioSource.connect(audioContext.destination);
 
-                      // Start the audio only after user interaction
-                      document.body.addEventListener('click', () => {
-                          audioContext.resume().then(() => {
-                              audioElement.play().catch(function(error) {
-                                  console.error('Audio play failed:', error);
+                      // Start the audio only after user scrolls
+                      let hasPlayed = false;  // Flag to ensure audio only plays once
+
+                      window.addEventListener('scroll', () => {
+                          if (!hasPlayed) {
+                              audioContext.resume().then(() => {
+                                  audioElement.play().catch(function(error) {
+                                      console.error('Audio play failed:', error);
+                                  });
+                                  hasPlayed = true; // Ensure audio is not played again
                               });
-                          });
+                          }
                       });
                   </script>
                 
