@@ -136,6 +136,17 @@
 
 </head>
 <body id="page-top" class="politics_version">
+    <audio id="bg-music" autoplay loop>
+        <source src="if I can stop one heart from breaking.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <script>
+        const audio = document.getElementById('bg-music');
+      
+        audio.addEventListener('loadedmetadata', function () {
+          audio.currentTime = 11;
+        });
+      </script>
     <div id="loading-screen">
         <div class="loading-text">Loading...</div>
     </div>
