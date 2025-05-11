@@ -164,7 +164,7 @@
     // Start the audio only after user scrolls
     let hasPlayed = false;  // Flag to ensure audio only plays once
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener('click', () => {
         if (!hasPlayed) {
             audioContext.resume().then(() => {
                 audioElement.play().catch(function(error) {
