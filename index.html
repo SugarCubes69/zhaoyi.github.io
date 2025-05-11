@@ -140,17 +140,15 @@
         <div class="loading-text">Loading...</div>
     </div>
     <script>
-  // Shrink and rotate out loading screen at 4.4s
   setTimeout(() => {
     const loadingScreen = document.getElementById('loading-screen');
     loadingScreen.classList.add('shrink-rotate-out');
-  }, 4500);
+  }, 2500);
 
-  // Fully remove loading screen at 5s
   setTimeout(() => {
     const loadingScreen = document.getElementById('loading-screen');
     loadingScreen.style.display = 'none';
-  }, 5000);
+  }, 3000);
     </script>
 	
     <!-- Navigation -->
