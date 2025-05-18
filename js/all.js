@@ -135,9 +135,8 @@ function(a,b,c,d){var e=function(b){this._core=b,this._timeout=null,this._paused
 	    $('.testi-carousel').owlCarousel({
             loop:true,
             margin:30,
-            dots:false,
-            nav: false,
-			autoplay:true,
+            dots:true,
+            nav: true,
             responsiveClass:true,
             navText: [
                "<i class='fa fa-angle-left effect-1'></i>",

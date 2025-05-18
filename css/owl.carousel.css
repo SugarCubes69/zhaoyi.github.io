@@ -58,7 +58,7 @@
 .owl-carousel .owl-nav .owl-next,
 .owl-carousel .owl-dot {
 	display: inline-block;
-	margin: 0px 5px;
+	margin: 0px 15px;
     cursor: pointer;
     cursor: hand;
     -webkit-user-select: none;
@@ -167,18 +167,18 @@
 }
 .owl-next i,
 .owl-prev i {
-  background-color: #009bb7;
-  width: 30px;
-  height: 30px;
-  font-size: 20px;
-  line-height: 30px;
+  background: #171717;
+  width: 60px;
+  height: 60px;
+  font-size: 28px;
+  line-height: 60px;
   text-align: center;
   right:auto;
   color: #ffffff;
 }
 
 .owl-next i:hover, .owl-prev i:hover{
-	background: #faad3b;
+	background: #241c65;
 }
 
 .owl-next i {
