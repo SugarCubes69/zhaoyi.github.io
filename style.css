@@ -658,10 +658,9 @@ xclip
 	text-align: center;
 	line-height: 90px;
 }
-.ser-icon i{
-	font-size: 50px;
-	color: #ffffff;
-	mix-blend-mode: difference;
+.ser-icon img{
+    position: absolute;
+    z-index: 10000;
 }
 .services-inner-box h2{
 	font-size: 22px;
