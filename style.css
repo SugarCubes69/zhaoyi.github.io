@@ -1602,7 +1602,8 @@ hr.invis1 {
 	overflow: hidden;
 	-webkit-box-shadow: 0 0 10px #ccc;
 	box-shadow: 0 0 10px #ccc;
-	border: 2px solid #1c7c8f;
+	-webkit-transition: all 0.4s ease;
+	transition: all 0.4s ease;
 }
 
 .gallery-list .img-overlay {
@@ -1611,7 +1612,7 @@ hr.invis1 {
     left: 10px;
     right: 10px;
     bottom: 10px;
-    background: rgba(255, 255, 255, 0.80);
+    background: rgba(51, 51, 51, 0.80);
     color: #35424C;
     opacity: 0;
     -webkit-transition: all .5s;
