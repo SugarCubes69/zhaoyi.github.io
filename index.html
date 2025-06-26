@@ -407,13 +407,60 @@
             <div class="section-title text-center">
                 <h3>Multi-agent Research System</h3>
             </div>
-            <div class="row">
+                <style>
+                    @keyframes tilt-left {
+                        0% { transform: rotate(0deg); }
+                        50% { transform: rotate(-70deg); }
+                        100% { transform: rotate(0deg); }
+                    }
+                
+                    @keyframes tilt-right {
+                        0% { transform: rotate(0deg); }
+                        50% { transform: rotate(70deg); }
+                        100% { transform: rotate(0deg); }
+                    }
+                
+                    .tilt-left {
+                        animation: tilt-left 2s infinite ease-in-out;
+                    }
+                
+                    .tilt-right {
+                        animation: tilt-right 2s infinite ease-in-out;
+                    }
+                    .description {
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 750px;
+            margin-left: 100px;
+            color: black;
+        }
+                </style>
+                
                 <span>
-                    <img src="Images/gemini.png" class="img-fluid" alt="Image" style = "width:80px; height:80px;">
-                    <img src="Images/agent.png" style="height: 350px;width: 750px;" alt="" class="img-fluid">
-                    <img src="Images/tavily.png" class="img-fluid" alt="Image" style = "width:80px; height:80px;">
+                    <img src="Images/gemini.png" class="img-fluid tilt-left" alt="Image" style="width:80px; height:80px; margin-right: 20px;">
+                    <img src="Images/agent.png" class="img-fluid" alt="" style="height:350px; width:750px; margin-right: 20px;">
+                    <img src="Images/tavily.png" class="img-fluid tilt-right" alt="Image" style="width:80px; height:80px;">
                 </span>
-            </div>
+                <details class="description">
+                    <summary>Click to view full description of the project</summary>
+                    <p>
+                        I have been wondering how the multi-agent systems were built for research tasks, such as the
+                        deep research function provided by the companies like Anthropic or OpenAI. After studying a lot
+                        of references, I decided to kickstart this project in order to understand the internal architecture
+                        and workflow of multi-agent research systems.
+                    </p>
+                    <p>
+                        In my current Version 1 code: When a user submits a query, (1) the manager agent analyzes it,
+                        plans research steps, and then delegates to subagents to explore the various steps. (2) The
+                        subagents search across the web by iteratively generating Python code to call the search tools,
+                        and (3) then returning a list of gathered information to the manager agent so it can compile a final
+                        answer.
+                    </p>
+                </details>
+                
+                
         </div>
     </div>
 	
