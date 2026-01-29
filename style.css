@@ -2666,3 +2666,165 @@ select.mobile-device {
     border-color: rgba(255, 255, 255, 0.6);
     color: rgba(255, 255, 255, 0.6);
 }
+
+
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: sans-serif;
+  }
+
+  .video-box {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -10;
+  }
+  .gradient-text {
+font-size: 48px;
+font-weight: bold;
+background: linear-gradient(90deg, #ff6a00, #ee0979);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 1.5em;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 55px;
+    border-radius: 10px;
+  }
+
+  .static-text {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 1.5em;
+    color: #000000;
+  }
+
+  .slot {
+    display: inline-block;
+    height: 1.5em;
+    vertical-align: top;
+    width: 250px;
+  }
+
+  #slot-lines {
+    display: flex;
+    flex-direction: column;
+    transform: translateY(0);
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .slot-item {
+    height: 1.5em;
+    color: #000000;
+  }
+  .slot-wrapper {
+      height: 6em; /* 4 lines × 2em */
+      overflow: hidden;
+  }
+            /* Loading screen styles */
+            #loading-screen {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #000000; /* Fully opaque black background */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: opacity 1s ease-out, visibility 1s ease-out;
+                visibility: visible;
+                opacity: 1;
+                z-index: 9999;
+            }
+            
+    
+            /* Loading text styles */
+            .loading-text {
+                font-size: 24px;
+                color: #fff;
+                margin: 0;
+            }
+    
+            /* New message styles */
+            .loading-message {
+                font-size: 18px;
+                color: #fff;
+                opacity: 0;
+                transition: opacity 1s ease-out;
+                margin-top: 20px;
+            }
+    
+            /* Rotating out effect */
+            .shrink-rotate-out {
+                animation: shrink-rotate-out 0.6s forwards ease-in-out;
+            }
+    
+            /* Animation for rotating and shrinking */
+            @keyframes shrink-rotate-out {
+                0% {
+                    transform: scale(1) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+    
+            /* Hidden loading screen */
+            #loading-screen.hidden {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+
+
+
+/* Firefly container */
+#portfolio {
+    position: relative;
+    overflow: hidden; /* keeps fireflies inside */
+    background-color: #7c9ab5;
+    padding: 80px 0;
+  }
+  
+  /* Fireflies */
+  .firefly {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, #fff, rgba(255,255,255,0));
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: moveFirefly 10s linear infinite;
+  }
+  
+  /* Firefly movement animation */
+  @keyframes moveFirefly {
+    0% { transform: translate(0,0) scale(1); opacity: 0.8; }
+    50% { transform: translate(100px, -50px) scale(1.3); opacity: 0.5; }
+    100% { transform: translate(0,0) scale(1); opacity: 0.8; }
+  }
