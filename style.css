@@ -795,7 +795,7 @@ xclip
 }
 .ser-icon img{
     position: absolute;
-    z-index: 10000;
+    z-index: 1;
 }
 .services-inner-box h2{
 	font-size: 22px;
