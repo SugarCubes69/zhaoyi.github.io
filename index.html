@@ -564,110 +564,106 @@
     </div>
 
     <style>
-      /* --- Honkai builds UI --- */
-      .hsr-builds{
-        margin-top: 18px;
-        padding: 16px;
-        border-radius: 16px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-        box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      }
+  /* --- Honkai builds UI --- */
+  .hsr-builds{
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
 
-      .hsr-icons{
-        width: 100%;
-        overflow:auto;
-        padding: 10px;
-        border-radius: 14px;
-        background: rgba(255,255,255,.04);
-        border: 1px solid rgba(255,255,255,.10);
-        scrollbar-width: thin;
-        scrollbar-color: rgba(255,255,255,.25) transparent;
-      }
-      .hsr-icons::-webkit-scrollbar{ height:10px; }
-      .hsr-icons::-webkit-scrollbar-thumb{
-        background: rgba(255,255,255,.18);
-        border-radius: 999px;
-      }
+  /* Icon area: multi-row, no auto-scroll */
+  .hsr-icons{
+    width: 100%;
+    padding: 10px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.10);
 
-      .hsr-group{
-        position: relative;
-        display:flex;
-        gap:10px;
-        align-items:center;
-        width:max-content;
-        min-width:100%;
-      }
+    /* ✅ allow multiple rows; no horizontal scroll */
+    overflow: hidden;
+  }
 
-      .hsr-thumb{
-        position:absolute;
-        top:6px;
-        left:6px;
-        height: calc(100% - 12px);
-        width: 140px; /* will be overridden by JS */
-        border-radius: 14px;
-        background: rgba(255,255,255,.14);
-        border: 1px solid rgba(255,255,255,.14);
-        box-shadow: 0 6px 18px rgba(0,0,0,.25);
-        transform: translateX(0);
-        transition: transform .22s ease, width .22s ease;
-        pointer-events:none;
-      }
+  .hsr-group{
+    display: flex;
+    flex-wrap: wrap;         /* ✅ multi-row */
+    gap: 10px;
+    align-items: center;
+    justify-content: center; /* optional: center rows */
+    width: 100%;
+  }
 
-      .hsr-item{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        padding: 10px 14px;
-        border-radius: 14px;
-        cursor:pointer;
-        user-select:none;
-      }
+  /* ❌ remove the thumb (delete from HTML too) */
+  .hsr-thumb{ display:none; }
 
-      .hsr-avatar{
-        width: 100px;   /* match your extracted HTML */
-        height: 100px;  /* match your extracted HTML */
-        object-fit: contain;
-        border-radius: 50px;
-        border: 1px solid rgba(255,255,255,0.2);
-        background: rgba(255,255,255,0.05);
-        transition: transform .15s ease, border-color .15s ease, background .15s ease;
-      }
+  .hsr-item{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 10px 14px;
+    border-radius: 14px;
+    cursor:pointer;
+    user-select:none;
 
-      .hsr-item.selected .hsr-avatar{
-        border-color: rgba(255,255,255,.36);
-        background: rgba(255,255,255,.09);
-        transform: translateY(-1px);
-      }
+    /* optional: subtle card feel */
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.08);
+  }
 
-      .hsr-main{
-        margin-top: 12px;
-        border-radius: 16px;
-        border: 1px solid rgba(255,255,255,.10);
-        background: rgba(255,255,255,.03);
-        overflow:hidden;
-      }
+  .hsr-item.selected{
+  background: rgba(255,255,255,.16);
+  border-color: rgba(255,255,255,.30);
+  box-shadow: 0 8px 18px rgba(0,0,0,.25);
+    }
 
-      #hsrMainImg{
-        width:100%;
-        height:560px;
-        display:block;
-        object-fit: cover; /* change to 'contain' if you don't want cropping */
-        opacity: 1;
-        transition: opacity .18s ease;
-      }
 
-      @media (max-width: 720px){
-        #hsrMainImg{ height: 420px; }
-        .hsr-avatar{ width: 76px; height: 76px; border-radius: 999px; }
-      }
-    </style>
+  .hsr-avatar{
+    width: 100px;   /* match your extracted HTML */
+    height: 100px;  /* match your extracted HTML */
+    object-fit: contain;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+
+  .hsr-item.selected .hsr-avatar{
+    border-color: rgba(255,255,255,.36);
+    background: rgba(255,255,255,.09);
+    transform: translateY(-1px);
+  }
+
+  .hsr-main{
+    margin-top: 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.03);
+    overflow:hidden;
+  }
+
+  #hsrMainImg{
+    width: 100%;
+    height: 800px;
+    display: block;
+    object-fit: contain;      /* ✅ no cropping */
+    background: rgba(0,0,0,.25); /* optional: nicer letterbox */
+    opacity: 1;
+    transition: opacity .18s ease;
+  }
+
+  @media (max-width: 720px){
+    #hsrMainImg{ height: 420px; }
+    .hsr-avatar{ width: 76px; height: 76px; border-radius: 999px; }
+  }
+</style>
+
 
     <!-- Honkai icon bar + image panel -->
     <div class="hsr-builds">
       <div class="hsr-icons">
         <div class="hsr-group" id="hsrGroup">
-          <div class="hsr-thumb" id="hsrThumb" aria-hidden="true"></div>
           <!-- icons injected by JS -->
         </div>
       </div>
@@ -679,114 +675,93 @@
     <!-- /Honkai icon bar + image panel -->
 
     <script>
-      // Temporary icons + images (same sources used earlier)
-      const hsrCharacters = [
-        {
-          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1310.webp",
-          image: "https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=1600&q=80"
-        },
-        {
-          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1409.webp",
-          image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80"
-        },
-        {
-          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1406.webp",
-          image: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1600&q=80"
-        },
-        {
-          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1003.webp",
-          image: "https://images.unsplash.com/photo-1520975682038-6d74dada3f44?auto=format&fit=crop&w=1600&q=80"
-        },
-        {
-          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1004.webp",
-          image: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1600&q=80"
-        },
-        {
-          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1209.webp",
-          image: "https://images.unsplash.com/photo-1520975607361-2f1a4f6c0e06?auto=format&fit=crop&w=1600&q=80"
-        },
-        {
-          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1104.webp",
-          image: "https://images.unsplash.com/photo-1520975745121-2b5e2d7b6f4b?auto=format&fit=crop&w=1600&q=80"
-        },
-        {
-          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1015.webp",
-          image: "https://images.unsplash.com/photo-1520975804368-6d6dd0b2f0c3?auto=format&fit=crop&w=1600&q=80"
-        }
-      ];
+  // Temporary icons + images (same ones as before)
+  const hsrCharacters = [
+    {
+      icon: "Images/fireflyicon.webp",
+      image: "Images/fireflybuild.png"
+    },
+    {
+      icon: "Images/ciphericon.webp",
+      image: "Images/cipherbuild.png"
+    },
+    {
+      icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1406.webp",
+      image: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1600&q=80"
+    },
+    {
+      icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1003.webp",
+      image: "https://images.unsplash.com/photo-1520975682038-6d74dada3f44?auto=format&fit=crop&w=1600&q=80"
+    },
+    {
+      icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1004.webp",
+      image: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1600&q=80"
+    },
+    {
+      icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1209.webp",
+      image: "https://images.unsplash.com/photo-1520975607361-2f1a4f6c0e06?auto=format&fit=crop&w=1600&q=80"
+    },
+    {
+      icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1104.webp",
+      image: "https://images.unsplash.com/photo-1520975745121-2b5e2d7b6f4b?auto=format&fit=crop&w=1600&q=80"
+    },
+    {
+      icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1015.webp",
+      image: "https://images.unsplash.com/photo-1520975804368-6d6dd0b2f0c3?auto=format&fit=crop&w=1600&q=80"
+    }
+  ];
 
-      (function initHonkaiBuilds(){
-        const root = document.getElementById("honkai");
-        if (!root) return;
+  (function initHonkaiBuilds(){
+    const root = document.getElementById("honkai");
+    if (!root) return;
 
-        const group = root.querySelector("#hsrGroup");
-        const thumb = root.querySelector("#hsrThumb");
-        const mainImg = root.querySelector("#hsrMainImg");
-        if (!group || !thumb || !mainImg) return;
+    const group = root.querySelector("#hsrGroup");
+    const mainImg = root.querySelector("#hsrMainImg");
+    if (!group || !mainImg) return;
 
-        let selected = 0;
-        const itemEls = [];
+    let selected = 0;
+    const itemEls = [];
 
-        // Build icons
-        hsrCharacters.forEach((c, i) => {
-          const btn = document.createElement("div");
-          btn.className = "hsr-item" + (i === selected ? " selected" : "");
+    // Build icons
+    hsrCharacters.forEach((c, i) => {
+      const btn = document.createElement("div");
+      btn.className = "hsr-item" + (i === selected ? " selected" : "");
 
-          const img = document.createElement("img");
-          img.className = "hsr-avatar";
-          img.src = c.icon;
-          img.alt = "";
+      const img = document.createElement("img");
+      img.className = "hsr-avatar";
+      img.src = c.icon;
+      img.alt = "";
 
-          btn.appendChild(img);
-          btn.addEventListener("click", () => select(i));
+      btn.appendChild(img);
+      btn.addEventListener("click", () => select(i));
 
-          group.appendChild(btn);
-          itemEls.push(btn);
-        });
+      group.appendChild(btn);
+      itemEls.push(btn);
+    });
 
-        function updateThumb() {
-          const el = itemEls[selected];
-          if (!el) return;
+    function select(i) {
+      if (i < 0 || i >= hsrCharacters.length) return;
+      selected = i;
 
-          const gRect = group.getBoundingClientRect();
-          const r = el.getBoundingClientRect();
+      itemEls.forEach((el, idx) => el.classList.toggle("selected", idx === i));
 
-          const left = (r.left - gRect.left) + 6;
-          const width = r.width - 12;
+      // Fade swap
+      mainImg.style.opacity = "0";
+      const { image } = hsrCharacters[i];
 
-          thumb.style.width = `${width}px`;
-          thumb.style.transform = `translateX(${left}px)`;
+      const pre = new Image();
+      pre.onload = () => {
+        mainImg.src = image;             // ✅ sets the image (no more “disappear”)
+        requestAnimationFrame(() => (mainImg.style.opacity = "1"));
+      };
+      pre.src = image;
+    }
 
-          el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-        }
+    // init
+    select(0);
+  })();
+</script>
 
-        function select(i) {
-          if (i < 0 || i >= hsrCharacters.length) return;
-          selected = i;
-
-          itemEls.forEach((el, idx) => el.classList.toggle("selected", idx === i));
-
-          // Fade swap
-          mainImg.style.opacity = "0";
-          const { image } = hsrCharacters[i];
-
-          const pre = new Image();
-          pre.onload = () => {
-            mainImg.src = image;
-            requestAnimationFrame(() => (mainImg.style.opacity = "1"));
-          };
-          pre.src = image;
-
-          updateThumb();
-        }
-
-        window.addEventListener("resize", updateThumb);
-
-        // init
-        select(0);
-        requestAnimationFrame(updateThumb);
-      })();
-    </script>
 
   </div>
 </div>
@@ -961,3 +936,4 @@
 <script src="js/scrolltop.js"></script>
 <script src="js/loading.js"></script>
 <script src="js/slot.js"></script>
+<script src="js/firefly.js"></script>

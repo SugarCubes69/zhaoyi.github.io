@@ -2668,7 +2668,7 @@ select.mobile-device {
 }
 
 
-
+/*My edits*/
 
 html, body {
     margin: 0;
@@ -2804,7 +2804,7 @@ background: linear-gradient(90deg, #ff6a00, #ee0979);
 
 
 /* Firefly container */
-#portfolio {
+#honkai {
     position: relative;
     overflow: hidden; /* keeps fireflies inside */
     background-color: #7c9ab5;

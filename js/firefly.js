@@ -1,6 +1,6 @@
 
         // Firefly effect
-        const portfolio = document.getElementById('portfolio');
+        const portfolio = document.getElementById('honkai');
         const fireflyCount = 67; // number of fireflies
         
         for (let i = 0; i < fireflyCount; i++) {
