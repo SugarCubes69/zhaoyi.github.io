@@ -40,47 +40,10 @@
         <div class="loading-text">Loading...</div>
         <div class="loading-message">Please click anywhere to start</div>
     </div>
-    <script>
-      // After 3 seconds, show the "Please click anywhere to start" message
-      setTimeout(function() {
-          document.querySelector('.loading-message').style.opacity = '1';
-      }, 3000);
-    
-      // Event listener for clicks to remove the loading screen
-      document.addEventListener('click', function() {
-          const loadingScreen = document.getElementById('loading-screen');
-          loadingScreen.classList.add('shrink-rotate-out'); // Add rotating effect
-          loadingScreen.classList.add('hidden'); // Hide the loading screen with fade-out
-    
-          // Optionally, prevent any other clicks from triggering the loading screen to hide again
-          document.removeEventListener('click', arguments.callee);
-      });
-    </script>
     
         <audio id="background-audio" loop>
           <source src="heart.mp3" type="audio/mpeg">
       </audio>
-      <script>
-        // Create AudioContext and connect the audio
-        let audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        let audioElement = document.getElementById('background-audio');
-        let audioSource = audioContext.createMediaElementSource(audioElement);
-        audioSource.connect(audioContext.destination);
-    
-        // Start the audio only after user scrolls
-        let hasPlayed = false;  // Flag to ensure audio only plays once
-    
-        window.addEventListener('click', () => {
-            if (!hasPlayed) {
-                audioContext.resume().then(() => {
-                    audioElement.play().catch(function(error) {
-                        console.error('Audio play failed:', error);
-                    });
-                    hasPlayed = true; // Ensure audio is not played again
-                });
-            }
-        });
-    </script>
 	
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -144,34 +107,6 @@
                 </span>
               </div>
             </div>
-            <script>
-                const slot = document.getElementById("slot-lines");
-                const lineHeight = 1.5; // em
-                const interval = 2000;
-              
-                function scrollSlot() {
-                  // Animate scroll up
-                  slot.style.transform = `translateY(-${lineHeight}em)`;
-              
-                  // After animation ends, rearrange
-                  setTimeout(() => {
-                    // Move first element to bottom
-                    const first = slot.children[0];
-                    slot.appendChild(first);
-              
-                    // Instantly reset transform (no animation)
-                    slot.style.transition = "none";
-                    slot.style.transform = "translateY(0)";
-              
-                    // Re-enable transition
-                    setTimeout(() => {
-                      slot.style.transition = "transform 0.6s ease-in-out";
-                    }, 50);
-                  }, 600); // match animation duration
-                }
-              
-                setInterval(scrollSlot, interval);
-              </script>
         </div>
 	</div>
     <style>
@@ -541,26 +476,6 @@
 			</div>
 		</div>
 	</div>
-    <script>
-        // Firefly effect
-        const portfolio = document.getElementById('portfolio');
-        const fireflyCount = 67; // number of fireflies
-        
-        for (let i = 0; i < fireflyCount; i++) {
-          const firefly = document.createElement('div');
-          firefly.className = 'firefly';
-          
-          // Random starting position
-          firefly.style.left = Math.random() * portfolio.offsetWidth + 'px';
-          firefly.style.top = Math.random() * portfolio.offsetHeight + 'px';
-          
-          // Random animation duration and delay
-          firefly.style.animationDuration = 5 + Math.random() * 5 + 's';
-          firefly.style.animationDelay = Math.random() * 5 + 's';
-          
-          portfolio.appendChild(firefly);
-        }
-        </script>
 	
 	 <!--<div id="testimonials" class="section wb">
         <div class="container">
@@ -643,14 +558,239 @@
     </div>-->
 	
 	<div id="honkai" class="section lb">
-		<div class="container">
-            <div class="section-title text-center">
-                <h3>My Honkai Star Rail builds</h3>
-            </div>
-            <img src="Images/fireflybuild.png" style="" alt="" class="img-fluid">
-            
-		</div>
-	</div>
+  <div class="container">
+    <div class="section-title text-center">
+      <h3>My Honkai Star Rail builds</h3>
+    </div>
+
+    <style>
+      /* --- Honkai builds UI --- */
+      .hsr-builds{
+        margin-top: 18px;
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      }
+
+      .hsr-icons{
+        width: 100%;
+        overflow:auto;
+        padding: 10px;
+        border-radius: 14px;
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.10);
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255,255,255,.25) transparent;
+      }
+      .hsr-icons::-webkit-scrollbar{ height:10px; }
+      .hsr-icons::-webkit-scrollbar-thumb{
+        background: rgba(255,255,255,.18);
+        border-radius: 999px;
+      }
+
+      .hsr-group{
+        position: relative;
+        display:flex;
+        gap:10px;
+        align-items:center;
+        width:max-content;
+        min-width:100%;
+      }
+
+      .hsr-thumb{
+        position:absolute;
+        top:6px;
+        left:6px;
+        height: calc(100% - 12px);
+        width: 140px; /* will be overridden by JS */
+        border-radius: 14px;
+        background: rgba(255,255,255,.14);
+        border: 1px solid rgba(255,255,255,.14);
+        box-shadow: 0 6px 18px rgba(0,0,0,.25);
+        transform: translateX(0);
+        transition: transform .22s ease, width .22s ease;
+        pointer-events:none;
+      }
+
+      .hsr-item{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding: 10px 14px;
+        border-radius: 14px;
+        cursor:pointer;
+        user-select:none;
+      }
+
+      .hsr-avatar{
+        width: 100px;   /* match your extracted HTML */
+        height: 100px;  /* match your extracted HTML */
+        object-fit: contain;
+        border-radius: 50px;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      }
+
+      .hsr-item.selected .hsr-avatar{
+        border-color: rgba(255,255,255,.36);
+        background: rgba(255,255,255,.09);
+        transform: translateY(-1px);
+      }
+
+      .hsr-main{
+        margin-top: 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.03);
+        overflow:hidden;
+      }
+
+      #hsrMainImg{
+        width:100%;
+        height:560px;
+        display:block;
+        object-fit: cover; /* change to 'contain' if you don't want cropping */
+        opacity: 1;
+        transition: opacity .18s ease;
+      }
+
+      @media (max-width: 720px){
+        #hsrMainImg{ height: 420px; }
+        .hsr-avatar{ width: 76px; height: 76px; border-radius: 999px; }
+      }
+    </style>
+
+    <!-- Honkai icon bar + image panel -->
+    <div class="hsr-builds">
+      <div class="hsr-icons">
+        <div class="hsr-group" id="hsrGroup">
+          <div class="hsr-thumb" id="hsrThumb" aria-hidden="true"></div>
+          <!-- icons injected by JS -->
+        </div>
+      </div>
+
+      <div class="hsr-main">
+        <img id="hsrMainImg" alt="" />
+      </div>
+    </div>
+    <!-- /Honkai icon bar + image panel -->
+
+    <script>
+      // Temporary icons + images (same sources used earlier)
+      const hsrCharacters = [
+        {
+          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1310.webp",
+          image: "https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1409.webp",
+          image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1406.webp",
+          image: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1003.webp",
+          image: "https://images.unsplash.com/photo-1520975682038-6d74dada3f44?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1004.webp",
+          image: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1209.webp",
+          image: "https://images.unsplash.com/photo-1520975607361-2f1a4f6c0e06?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1104.webp",
+          image: "https://images.unsplash.com/photo-1520975745121-2b5e2d7b6f4b?auto=format&fit=crop&w=1600&q=80"
+        },
+        {
+          icon: "https://fribbels.github.io/hsr-optimizer/assets/icon/avatar/1015.webp",
+          image: "https://images.unsplash.com/photo-1520975804368-6d6dd0b2f0c3?auto=format&fit=crop&w=1600&q=80"
+        }
+      ];
+
+      (function initHonkaiBuilds(){
+        const root = document.getElementById("honkai");
+        if (!root) return;
+
+        const group = root.querySelector("#hsrGroup");
+        const thumb = root.querySelector("#hsrThumb");
+        const mainImg = root.querySelector("#hsrMainImg");
+        if (!group || !thumb || !mainImg) return;
+
+        let selected = 0;
+        const itemEls = [];
+
+        // Build icons
+        hsrCharacters.forEach((c, i) => {
+          const btn = document.createElement("div");
+          btn.className = "hsr-item" + (i === selected ? " selected" : "");
+
+          const img = document.createElement("img");
+          img.className = "hsr-avatar";
+          img.src = c.icon;
+          img.alt = "";
+
+          btn.appendChild(img);
+          btn.addEventListener("click", () => select(i));
+
+          group.appendChild(btn);
+          itemEls.push(btn);
+        });
+
+        function updateThumb() {
+          const el = itemEls[selected];
+          if (!el) return;
+
+          const gRect = group.getBoundingClientRect();
+          const r = el.getBoundingClientRect();
+
+          const left = (r.left - gRect.left) + 6;
+          const width = r.width - 12;
+
+          thumb.style.width = `${width}px`;
+          thumb.style.transform = `translateX(${left}px)`;
+
+          el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        }
+
+        function select(i) {
+          if (i < 0 || i >= hsrCharacters.length) return;
+          selected = i;
+
+          itemEls.forEach((el, idx) => el.classList.toggle("selected", idx === i));
+
+          // Fade swap
+          mainImg.style.opacity = "0";
+          const { image } = hsrCharacters[i];
+
+          const pre = new Image();
+          pre.onload = () => {
+            mainImg.src = image;
+            requestAnimationFrame(() => (mainImg.style.opacity = "1"));
+          };
+          pre.src = image;
+
+          updateThumb();
+        }
+
+        window.addEventListener("resize", updateThumb);
+
+        // init
+        select(0);
+        requestAnimationFrame(updateThumb);
+      })();
+    </script>
+
+  </div>
+</div>
+
 
     <div id="contact" class="section db">
         <div class="container">
@@ -727,18 +867,6 @@
                         </div>
                         <div class="testimonial clearfix">
 							<div class="testi-meta">
-                                <h4 style = "color:white" >School Email </h4>
-                            </div>
-                            <div class="desc">
-                                <button
-          onclick="location.href='mailto:nh25_gao_zhaoyi@nhhs.edu.sg?'">
-                                <img src="Images/nhhs.png" style="height: 55px;width: 55px;" class="img-fluid">
-                            </button>
-                                <h3><i class="fa"></i> School Email</h3>
-                            </div>
-                        </div>
-                        <div class="testimonial clearfix">
-							<div class="testi-meta">
                                 <h4 style = "color:white" >Personal Email </h4>
                             </div>
                             <div class="desc">
@@ -801,7 +929,7 @@
             <div class="footer-distributed">
                 <div class="footer-left">
                     <p class="footer-company-name">All Rights Reserved. &copy; 2025 <a href="#">Zhaoyi</a> Design By : 
-					<a href="https://html.design/">html design</a></p>
+					<a href="https://html.design/">html design</a> and other sources</p>
                 </div>
             </div>
         </div><!-- end container -->
@@ -825,18 +953,11 @@
     <!-- ALL PLUGINS -->
     <script src="js/custom.js"></script>
     <script src="js/jquery.vide.js"></script>
-    <script>
-        if ('scrollRestoration' in history) {
-          history.scrollRestoration = 'manual';
-        }
-      
-        window.onload = function () {
-          window.scrollTo(0, 0);
-        };
-      </script>
       
 </body>
-
-
-
 </html>
+
+<!--My own scripts-->
+<script src="js/scrolltop.js"></script>
+<script src="js/loading.js"></script>
+<script src="js/slot.js"></script>

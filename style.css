@@ -368,7 +368,7 @@ a img.aligncenter {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #000;
+    background-color: #1c7c8f;
     z-index: 0;
     opacity: .6;
 }
@@ -459,7 +459,7 @@ xclip
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #ffffff;
-	border-bottom: 4px solid #171717;
+	border-bottom: 4px solid #1c7c8f;
 }
 
 #clouds{
