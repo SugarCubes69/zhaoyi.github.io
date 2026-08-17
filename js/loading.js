@@ -1,36 +1,89 @@
 
-      // After 3 seconds, show the "Please click anywhere to start" message
-      setTimeout(function() {
-          document.querySelector('.loading-message').style.opacity = '1';
-      }, 3000);
-    
-      // Event listener for clicks to remove the loading screen
-      document.addEventListener('click', function() {
-          const loadingScreen = document.getElementById('loading-screen');
-          loadingScreen.classList.add('shrink-rotate-out'); // Add rotating effect
-          loadingScreen.classList.add('hidden'); // Hide the loading screen with fade-out
-    
-          // Optionally, prevent any other clicks from triggering the loading screen to hide again
-          document.removeEventListener('click', arguments.callee);
-      });
+(function () {
+    var MIN_DURATION = 3000;    // loader never shorter than this
+    var MAX_DURATION = 10000;   // safety net: never stuck longer than this
 
+    // List everything the first screen needs. Empty array is fine.
+    var ASSETS = [
+        // 'images/bg.jpg',
+        // 'images/title.png'
+    ];
+    var QUOTES = [
+        "Low cortisol",
+        "Grass",
+        "Quack",
+        "AbarAbar"
+    ];
 
-        // Create AudioContext and connect the audio
-        let audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        let audioElement = document.getElementById('background-audio');
-        let audioSource = audioContext.createMediaElementSource(audioElement);
-        audioSource.connect(audioContext.destination);
-    
-        // Start the audio only after user scrolls
-        let hasPlayed = false;  // Flag to ensure audio only plays once
-    
-        window.addEventListener('click', () => {
-            if (!hasPlayed) {
-                audioContext.resume().then(() => {
-                    audioElement.play().catch(function(error) {
-                        console.error('Audio play failed:', error);
-                    });
-                    hasPlayed = true; // Ensure audio is not played again
-                });
-            }
-        });
+    var screenEl = document.getElementById('loading-screen');
+    var fill     = screenEl.querySelector('#fill');
+    var text     = screenEl.querySelector('.loading-text');
+    var message  = screenEl.querySelector('.loading-message');
+    var audioEl  = document.getElementById('background-audio');
+
+    text.textContent = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+
+    var startTime = Date.now();
+    var total     = ASSETS.length + (audioEl ? 1 : 0);
+    var loaded    = 0;
+    var ready     = false;
+
+    function step() {
+        loaded++;
+        if (loaded >= total) finished();
+    }
+
+    ASSETS.forEach(function (src) {
+        var img = new Image();
+        img.onload  = step;
+        img.onerror = step;     // a 404 must not stall the bar
+        img.src = src;
+    });
+
+    if (audioEl) {
+        audioEl.addEventListener('canplaythrough', step, { once: true });
+        audioEl.addEventListener('error', step, { once: true });
+    }
+
+    // Bar follows whichever is further behind: real progress, or the clock.
+    function updateBar() {
+        var byAssets = total ? (loaded / total) * 100 : 100;
+        var byTime   = ((Date.now() - startTime) / MIN_DURATION) * 100;
+        var pct = Math.min(byAssets, byTime, 100);
+
+        fill.style.width = pct + '%';
+        if (pct > 35) text.classList.add('on');
+        if (!ready) requestAnimationFrame(updateBar);
+    }
+    requestAnimationFrame(updateBar);
+
+    function finished() {
+        if (ready) return;
+
+        // If assets finished early, wait out the remainder of the floor.
+        var elapsed = Date.now() - startTime;
+        if (elapsed < MIN_DURATION) {
+            setTimeout(finished, MIN_DURATION - elapsed);
+            return;
+        }
+
+        ready = true;
+        fill.style.width = '100%';
+        text.classList.add('on');
+        message.classList.add('on');
+        document.addEventListener('click', dismiss, { once: true });
+    }
+
+    setTimeout(finished, MAX_DURATION);
+
+    function dismiss() {
+        screenEl.classList.add('shrink-rotate-out');
+        setTimeout(function () { screenEl.style.display = 'none'; }, 900);
+
+        if (audioEl) {
+            audioEl.play().catch(function (err) {
+                console.error('Audio play failed:', err);
+            });
+        }
+    }
+})();
