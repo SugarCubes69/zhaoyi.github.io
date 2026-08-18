@@ -9,10 +9,12 @@
         // 'images/title.png'
     ];
     var QUOTES = [
-        "Low cortisol",
-        "Grass",
-        "Quack",
-        "AbarAbar"
+        "空っぽなのに心が",
+        "痛むんだ",
+        "今日がどうにも寂しくってさ",
+        "眠れないままだけどさ",
+        "いつか幸せって思えるまで",
+        "君は君のままでいてよ"
     ];
 
     var screenEl = document.getElementById('loading-screen');
